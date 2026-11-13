@@ -27,7 +27,7 @@ svg{width:100%;height:auto}
 @keyframes bob{50%{transform:translateY(-3px)}}
 #game{display:none;position:absolute;inset:0;background:#2b050acc;z-index:5;overflow:hidden;line-height:1.1}
 #gt{position:absolute;top:6px;left:10px;right:10px;text-align:center;font-size:20px}
-.b{position:absolute;bottom:-30px;padding:3px 12px;border-radius:20px;border:2px solid var(--pink);font-size:22px;background:#2b050a;white-space:nowrap;animation:up 3.4s linear forwards;box-shadow:0 0 10px #ff3f9c88}
+.b{position:absolute;bottom:-40px;padding:9px 18px;border-radius:26px;border:2px solid var(--pink);font-size:25px;background:#2b050a;white-space:nowrap;animation:up 5s linear forwards;box-shadow:0 0 10px #ff3f9c88;touch-action:manipulation;user-select:none}.b::after{content:'';position:absolute;inset:-16px}
 .b.h{border-color:#ff5555;color:#ff9a9a;box-shadow:0 0 10px #f33}
 @keyframes up{to{bottom:105%}}
 #say{margin:8px 0;padding:8px 12px;border:2px solid var(--pink);border-radius:18px;font-size:22px;line-height:1.15;box-shadow:0 0 10px #ff3f9c55 inset;min-height:46px}
@@ -37,7 +37,7 @@ button.m{background:var(--hot)!important;color:#2b050a!important;text-shadow:non
 #panel .t{font-size:23px;line-height:1.15}
 #over{display:none;position:fixed;inset:0;z-index:9;background:radial-gradient(ellipse at 50% 0,#5e101c,#2b050a 75%);overflow:auto;padding:20px 18px}
 #over>div{max-width:440px;margin:0 auto}
-.fine{text-align:center;font-size:17px;opacity:.75;margin-top:10px}
+.fine{text-align:center;font-size:17px;opacity:.75;margin-top:10px}.p{position:fixed;top:-30px;z-index:20;pointer-events:none;animation:fall 2.8s linear forwards;text-shadow:var(--glow)}@keyframes fall{to{transform:translateY(110vh) rotate(360deg);opacity:.3}}#toast{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:30;background:#2b050a;border:2px solid var(--pink);border-radius:22px;padding:8px 16px;box-shadow:0 0 18px #ff3f9c;display:none;font-size:22px;text-align:center;max-width:92%}
 </style>
 </head>
 <body>
@@ -50,22 +50,22 @@ button.m{background:var(--hot)!important;color:#2b050a!important;text-shadow:non
 <linearGradient id="n" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b1033"/><stop offset="1" stop-color="#5a1b4a"/></linearGradient></defs>
 <rect width="360" height="400" fill="url(#w)"/>
 <rect y="285" width="360" height="115" fill="#220509"/><path d="M0 285H360" stroke="#ff9ccf" stroke-opacity=".4"/>
-<path d="M0 14H360" stroke="#ff2d55" stroke-width="4" stroke-dasharray="2 6" filter="url(#g)"/>
-<g fill="#3a0a12" stroke="#ff9ccf" stroke-opacity=".6"><rect x="12" y="36" width="34" height="46"/><rect x="52" y="44" width="26" height="36"/><rect x="290" y="36" width="30" height="40"/><rect x="326" y="48" width="22" height="30"/></g>
+<path d="M0 14H360" stroke="#ff2d55" stroke-width="4" stroke-dasharray="2 6" filter="url(#g)"/><g id="dec"></g>
+<g fill="#3a0a12" stroke="#ff9ccf" stroke-opacity=".6" class="o" onclick="sec()"><rect x="12" y="36" width="34" height="46"/><rect x="52" y="44" width="26" height="36"/></g><g fill="#3a0a12" stroke="#ff9ccf" stroke-opacity=".6" class="o" onclick="tap('dec')"><rect x="290" y="36" width="30" height="40"/><rect x="326" y="48" width="22" height="30"/><text class="sp" x="320" y="30">✦</text></g>
 <g class="o" onclick="tap('win')"><rect x="150" y="40" width="88" height="78" rx="4" fill="url(#n)" stroke="#ff9ccf" stroke-width="3"/><path d="M194 40V118M150 79H238" stroke="#ff9ccf"/><circle cx="218" cy="58" r="9" fill="#ffe3f1" filter="url(#g)"/><text class="sp" x="194" y="34">✦</text></g>
 <g class="o" onclick="tap('plush')"><path d="M12 152H116" stroke="#ff9ccf" stroke-width="3"/><circle cx="50" cy="134" r="16" fill="#ffe3f1"/><circle cx="38" cy="120" r="6" fill="#ffe3f1"/><circle cx="62" cy="120" r="6" fill="#ffe3f1"/><circle cx="44" cy="133" r="2" fill="#222"/><circle cx="57" cy="133" r="2" fill="#222"/><ellipse cx="50" cy="139" rx="3" ry="2" fill="#f3b32b"/><path d="M60 122l12-5v10z" fill="#ff3b6b"/><text class="sp" x="50" y="106">✦</text></g>
 <g class="o" onclick="tap('bed')"><rect x="6" y="228" width="136" height="64" rx="6" fill="#5d1222" stroke="#ff9ccf"/><rect x="12" y="216" width="42" height="18" rx="8" fill="#ffc4de"/><rect x="60" y="238" width="78" height="42" rx="6" fill="#7a1a33"/><rect x="104" y="226" width="9" height="15" rx="2" fill="#ff7cc0" filter="url(#g)"/><text class="sp" x="76" y="206">✦</text></g>
 <g class="o" onclick="tap('pc')"><rect x="150" y="238" width="104" height="9" fill="#6b1830" stroke="#ff9ccf"/><path d="M158 247V292M246 247V292" stroke="#ff9ccf" stroke-width="3"/><rect x="172" y="186" width="56" height="42" rx="3" fill="#18040a" stroke="#ff9ccf"/><rect x="177" y="191" width="46" height="32" fill="#ff7cc0" opacity=".75" filter="url(#g)"/><path d="M200 228v10" stroke="#ff9ccf" stroke-width="3"/><circle id="ring" cx="244" cy="200" r="15" fill="none" stroke="#ffd6ec" stroke-width="3" filter="url(#g)"/><path d="M244 215V238" stroke="#ff9ccf" stroke-width="2"/><text class="sp" x="200" y="174">✦</text></g>
 <g class="o" onclick="tap('ward')"><rect x="266" y="140" width="82" height="152" rx="4" fill="#3a0a12" stroke="#ff9ccf" stroke-width="2"/><rect x="276" y="152" width="62" height="86" rx="3" fill="#8a3a55" stroke="#ffc4de"/><path d="M284 232L330 160" stroke="#fff" stroke-opacity=".25" stroke-width="5"/><circle cx="307" cy="268" r="3" fill="#ff9ccf"/><text class="sp" x="307" y="132">✦</text></g>
-<g id="d" style="transform:translate(190px,340px)" onclick="pat()"><ellipse cx="0" cy="0" rx="24" ry="5" fill="#000" opacity=".35"/><g class="bob" id="dd">
+<g id="bat" class="o" onclick="tap('bat')" style="display:none"><path d="M146 298L172 266" stroke="#dfe6f2" stroke-width="8" stroke-linecap="round" filter="url(#g)"/><text class="sp" x="156" y="258">✦</text></g><g id="d" style="transform:translate(190px,340px)" onclick="pat()"><ellipse cx="0" cy="0" rx="24" ry="5" fill="#000" opacity=".35"/><g class="bob" id="dd">
 <rect x="-14" y="-24" width="10" height="22" fill="#2a1a1f"/><rect x="4" y="-24" width="10" height="22" fill="#2a1a1f"/><rect x="-17" y="-4" width="14" height="5" rx="2" fill="#ffc4de"/><rect x="3" y="-4" width="14" height="5" rx="2" fill="#ffc4de"/>
 <ellipse cx="0" cy="-92" rx="25" ry="28" fill="#17080c"/>
-<path d="M-23 -70h46l7 48h-60z" fill="#6b1424"/><path d="M-9 -70L0 -58 9 -70" fill="none" stroke="#fff" stroke-width="3"/>
+<path id="bd" d="M-23 -70h46l7 48h-60z" fill="#6b1424"/><path d="M-9 -70L0 -58 9 -70" fill="none" stroke="#fff" stroke-width="3"/>
 <rect x="-5" y="-76" width="10" height="9" fill="#f3cdbf"/><circle cx="0" cy="-92" r="19" fill="#f3cdbf"/>
 <path d="M-21 -94Q0 -122 21 -94Q10 -104 0 -100Q-10 -104 -21 -94z" fill="#17080c"/><rect x="-24" y="-96" width="6" height="30" rx="3" fill="#17080c"/><rect x="18" y="-96" width="6" height="30" rx="3" fill="#17080c"/>
-<circle cx="-7" cy="-90" r="2.4" fill="#5b7fa6"/><circle cx="7" cy="-90" r="2.4" fill="#5b7fa6"/><circle cx="-12" cy="-84" r="3" fill="#ff9ccf" opacity=".5"/><circle cx="12" cy="-84" r="3" fill="#ff9ccf" opacity=".5"/>
+<circle cx="-7" cy="-90" r="2.4" fill="#5b7fa6"/><circle cx="7" cy="-90" r="2.4" fill="#5b7fa6"/><circle id="c1" cx="-12" cy="-84" r="3" fill="#ff9ccf" opacity=".5"/><circle id="c2" cx="12" cy="-84" r="3" fill="#ff9ccf" opacity=".5"/><path id="ey" d="M-11 -92L-3 -91M3 -91L11 -92M11 -92L15 -96M-11 -92L-15 -96" stroke="#111" stroke-width="1.7" fill="none" display="none"/>
 <path id="mo" d="M-5 -80Q0 -76 5 -80" fill="none" stroke="#b0405a" stroke-width="2" stroke-linecap="round"/>
-<circle cx="19" cy="-96" r="3.5" fill="#fff"/><circle cx="22" cy="-90" r="3" fill="#fff"/><circle cx="20" cy="-84" r="2.6" fill="#fff"/></g></g>
+<circle cx="19" cy="-96" r="3.5" fill="#fff"/><circle cx="22" cy="-90" r="3" fill="#fff"/><circle cx="20" cy="-84" r="2.6" fill="#fff"/><text id="ac" x="0" y="-118" text-anchor="middle" font-size="16" fill="#ffd6ec"></text></g></g>
 </svg>
 <div id="game"><div id="gt"></div></div>
 </div>
@@ -73,7 +73,7 @@ button.m{background:var(--hot)!important;color:#2b050a!important;text-shadow:non
 <div id="panel"></div>
 <div class="fine">Нажимай на предметы в комнате ✦ и на Дашу</div>
 </div>
-<div id="over"><div id="ovc"></div></div>
+<div id="over"><div id="ovc"></div></div><div id="toast"></div>
 <script>
 var tg=window.Telegram&&window.Telegram.WebApp;if(tg){try{tg.ready();tg.expand();}catch(e){}}
 function $(i){return document.getElementById(i);}
@@ -94,15 +94,20 @@ var EV=[
 ["Звонит мама: «Когда нормальная работа?»",[["Показать статистику канала","Мама впечатлена!",0,0,12,0],["Не брать трубку","Совесть немного грызёт.",0,0,-6,0]]],
 ["Подруга зовёт гулять.",[["Пойти","Было здорово! Но ноги гудят.",0,-15,15,-100],["Остаться дома","Уютно, но чуть грустно.",0,5,-3,0]]],
 ["Известный блогер предлагает коллаб!",[["Согласиться","Огромный охват!",600,-10,8,0],["Отказаться","Вдруг в другой раз.",0,0,3,0]]],
-["В видео случайно играл чужой трек.",[["Заменить музыку","Безопасно.",-50,0,2,0],["Оставить","Повезло, никто не заметил!",200,0,3,0,.5,["Видео заблокировали.",-400,0,-10,0]]]]
+["В видео случайно играл чужой трек.",[["Заменить музыку","Безопасно.",-50,0,2,0],["Оставить","Повезло, никто не заметил!",200,0,3,0,.5,["Видео заблокировали.",-400,0,-10,0]]]],
+["Энергетик «Ночной драйв» хочет рекламу в эфирах.",[["Взять рекламу","Деньги пришли, зрители ворчат.",-200,0,-3,900],["Отказаться","Честность дороже.",100,0,8,0]]],
+["Мобильная игра платит за интеграцию.",[["Согласиться","Игра зашла зрителям!",100,0,3,600,.7,["Игра оказалась ужасной.",-300,0,-8,300]],["Отказаться","Не твой формат.",0,0,2,0]]],
+["Бренд косметики дарит набор за честный обзор.",[["Сделать обзор","Обзор получился тёплым и честным.",300,-5,8,0],["Попросить деньги","Договорились о гонораре!",100,0,3,800,.5,["Бренд отказал.",0,0,-5,0]]]],
+["Магазин кроссовок: скидка за рекламу в сторис.",[["Взять","Кроссовки огонь, ты в плюсе.",100,-3,5,400],["Отказаться","Пусть найдут другую.",0,0,3,0]]],
+["Кофейня предлагает снять у них контент.",[["Сходить","Уютные кадры, вкусный латте ♡",250,-8,8,200],["Отказаться","Сегодня хочется дома.",0,0,2,0]]]
 ];
 var PH=['Хи-хи, щекотно ♡','Сделаем крутой контент!','Спасибо, что ты рядом ♡','10K уже близко ✦','Я так люблю свой канал «Меня зовут 20»'];
-function init(){S={f:1000,e:80,m:70,c:500,d:1,h:10,l:0,fx:0,won:0};}
+function init(){S=D();}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
 function hud(){
- $('hud').innerHTML='<div style="width:100%">Подписчики: <b>'+fmt(S.f)+'</b> / 10 000</div><div class="bar" style="width:100%"><i style="width:'+Math.min(100,S.f/100)+'%"></i></div><div>📅 День '+S.d+'/30</div><div>🕒 '+(S.h<10?'0':'')+S.h+':00</div><div>⚡ '+Math.round(S.e)+'</div><div>♡ '+Math.round(S.m)+'</div><div>💸 '+fmt(S.c)+' ₽</div>';
+ $('hud').innerHTML='<div style="width:100%">Подписчики: <b>'+fmt(S.f)+'</b> / '+fmt(TG())+'</div><div class="bar" style="width:100%"><i style="width:'+Math.min(100,S.f/TG()*100)+'%"></i></div><div>📅 День '+S.d+'</div><div>🕒 '+(S.h<10?'0':'')+S.h+':00</div><div>⚡ '+Math.round(S.e)+'</div><div>♡ '+Math.round(S.m)+'</div><div>💸 '+fmt(S.c)+' ₽</div>';
  $('mo').setAttribute('d',S.m<30?'M-5 -76Q0 -80 5 -76':'M-5 -80Q0 -75 5 -80');
- $('ring').style.opacity=S.l?1:.35;
+ $('ring').style.opacity=S.l?1:.35;look();
 }
 function say(t){$('say').textContent='💬 '+t;}
 function ch(a){
@@ -124,24 +129,24 @@ function tap(k){
   h+='<button onclick="rel()">Отойти</button>';$('panel').innerHTML=h;
  });
 }
-function rel(){busy=0;$('panel').innerHTML='';}
-function pat(){if(busy)return;S.m=cl(S.m+1);hud();say(rnd(PH));}
+function rel(){busy=0;$('d').style.opacity=1;$('panel').innerHTML='<button class="m" onclick="street()">🚪 Выйти на улицу</button>';}
+function pat(){if(busy)return;S.m=cl(S.m+1);if(++S.pc>=7){return love();}hud();say(rnd(PH));}
 function fin(msg,h,noEv){
  S.h+=h;
  if(S.e<=0){S.e=30;S.h+=3;msg+=' Даша уснула за столом...';}
  say(msg);hud();save();
- if(S.f>=10000&&!S.won){S.won=1;return end(1);}
+ if(chk())return;
  if(S.h>=24)return newDay();
  if(!noEv&&Math.random()<.3)return ev();
  rel();
 }
 function newDay(){
  S.d++;S.h=10;S.e=cl(S.e+55);
- if(S.d>30)return end(0);
+ 
  hud();save();$('panel').innerHTML='<div class="t">☀️ Начался день '+S.d+'. Энергия восстановилась.</div><button class="m" onclick="rel()">Ура ♡</button>';
 }
-function ev(){
- var i;do{i=Math.floor(Math.random()*EV.length);}while(i==last);last=i;var e=EV[i];
+function ev(n){
+ var i=n;if(i===undefined)do{i=Math.floor(Math.random()*EV.length);}while(i==last);last=i;var e=EV[i];
  var h='<div class="t">✦ '+e[0]+'</div>';
  e[1].forEach(function(c,j){h+='<button onclick="evp('+j+')">'+c[0]+'</button>';});
  $('panel').innerHTML=h;
@@ -150,12 +155,13 @@ function evp(j){
  var c=EV[last][1][j],r=c[1],a=c.slice(2,6);
  if(c[6]!==undefined&&Math.random()>=c[6]){r=c[7][0];a=c[7].slice(1);}
  var d=ch(a);hud();save();say(r+d);
- if(S.f>=10000&&!S.won){S.won=1;return end(1);}
+ if(chk())return;
  rel();
 }
 function act(k){
  $('panel').innerHTML='';
  var m=1+S.m/250,t;
+ if(act2(k))return;
  if(k=='nap')return fin('Даша вздремнула. Стало легче.'+ch([0,30,5,0]),3);
  if(k=='scr'){S.fx+=.2;return fin('Увидела трендовый звук! Идея для следующего эфира.'+ch([30,-3,6,0]),1);}
  if(k=='hug')return fin('Обняла Китти. Тепло и спокойно ♡'+ch([0,3,12,0]),1);
@@ -200,7 +206,65 @@ function again(){try{localStorage.removeItem(KEY);}catch(e){}init();X=190;$('d')
 function boot(){
  var sv=null;try{sv=JSON.parse(localStorage.getItem(KEY));}catch(e){}
  init();hud();say('Привет! Я Даша. Нажми на предмет в комнате, и я подойду.');
- ov('<div class="big">♛</div><div class="big">Меня<br>зовут 20</div><p style="text-align:center;font-size:24px">Помоги Даше дорасти до <b>10K подписчиков</b> за 30 дней. Ходи по комнате, стримь, монтируй, отдыхай и не выгори ♡</p><button class="m" onclick="$(\'over\').style.display=\'none\'">'+(sv&&sv.f?'Новая игра':'Войти в комнату ✦')+'</button>'+(sv&&sv.f?'<button onclick="S=JSON.parse(localStorage.getItem(KEY));hud();$(\'over\').style.display=\'none\'">Продолжить (день '+sv.d+')</button>':''));
+ ov('<div class="big">♛</div><div class="big">Меня<br>зовут 20</div><p style="text-align:center;font-size:24px">Помоги Даше дорасти до <b>10K подписчиков</b> за 30 дней. Ходи по комнате, стримь, монтируй, отдыхай и не выгори ♡</p><button class="m" onclick="$(\'over\').style.display=\'none\'">'+(sv&&sv.f?'Новая игра':'Войти в комнату ✦')+'</button>'+(sv&&sv.f?'<button onclick="S=Object.assign(D(),JSON.parse(localStorage.getItem(KEY)));hud();$(\'over\').style.display=\'none\'">Продолжить (день '+sv.d+')</button>':''));
+}
+function D(){return {f:1000,e:80,m:70,c:500,d:1,h:10,l:0,fx:0,g:0,o:[0],oc:0,mks:[0],mk:0,dc:[],a:{},bat:0,bf:0,bs:0,pc:0};}
+function TG(){return [1e4,1e5,1e6][Math.min(S.g,2)];}
+O.pc.a.push(['📧 Почта: рекламные предложения','mail'],['💃 Снять танец (2 ч)','dnc']);
+O.ward.a=[['👗 Образы (купить, надеть)','wr'],['💄 Макияж (купить, нанести)','mkp']];
+O.dec={x:318,n:'Стена с плакатами',a:[['🖼 Украсить комнату','dcm']]};
+O.bat={x:150,n:'Серебряная бита',a:[['🏏 Взять биту','bat']]};
+PH.push('Подписчики — моё всё ♡','Так, где мой кофе?','Кто-то сказал «10K»? ✦','Сегодня точно залетит!','Мама, я в тиктоке!','Освещение — наше всё 💡','Эй, не щекочи!','Говорят, где-то в комнате прячется серебряная бита...','Левые постеры смотрят как-то подозрительно...','Если щекотать меня долго, я включу любимую песню ♡');
+var OUT=[{n:'Бордовое худи',p:0,c:'#6b1424',a:''},{n:'Розовый топ',p:250,c:'#ff7cc0',a:''},{n:'Чёрное платье',p:400,c:'#1a1a22',a:'✦'},{n:'Белый свитер с бантом',p:350,c:'#f0e8ee',a:'🎀'},{n:'Образ королевы',p:900,c:'#9b1b5a',a:'♛'}];
+var MKS=[{n:'Натуральный',p:0,lip:'#b0405a',e:0,b:.5},{n:'Со стрелками',p:150,lip:'#b0405a',e:1,b:.5},{n:'Красная помада',p:300,lip:'#e0102f',e:1,b:.75},{n:'Неон-розовый',p:500,lip:'#ff3fa0',e:1,b:1}];
+var DC=[{n:'Розовая гирлянда',p:200,s:'<path d="M20 30Q90 62 180 34T340 30" stroke="#ff7cc0" stroke-width="3" stroke-dasharray="1 7" fill="none" filter="url(#g)"/>'},{n:'Пушистый ковёр',p:300,s:'<ellipse cx="190" cy="362" rx="95" ry="15" fill="#7a1a33" stroke="#ff9ccf"/>'},{n:'Неоновая надпись «20»',p:400,s:'<text x="262" y="122" font-size="34" fill="none" stroke="#ff7cc0" stroke-width="1.5" filter="url(#g)" font-family="Marck Script">20</text>'},{n:'Ландыши в вазе',p:150,s:'<path d="M118 300h14l-3-20h-8z" fill="#ffc4de"/><circle cx="121" cy="272" r="3" fill="#fff"/><circle cx="127" cy="268" r="3" fill="#fff"/><circle cx="131" cy="275" r="3" fill="#fff"/><path d="M125 280V268" stroke="#7bd08a"/>'},{n:'Ночник-звезда',p:250,s:'<text x="160" y="236" font-size="22" fill="#ffd6ec" filter="url(#g)">★</text>'},{n:'Фотографии на стене',p:200,s:'<g fill="#ffe3f1"><rect x="92" y="40" width="22" height="28" transform="rotate(-6 92 40)"/><rect x="250" y="60" width="22" height="28" transform="rotate(5 250 60)"/></g>'}];
+var TR=[['💃 Танцевальный челлендж',.25,.2],['🎵 Mirage21 — My Love',.35,.1,1],['😭 Грустный монолог',.3,.4],['🎭 POV-скетч',.3,.3],['🧴 GRWM — собираюсь со мной',.25,.15],['🌸 Эстетичный влог',.2,.1],['🔥 Челлендж с подписчиками',.35,.45]];
+function look(){var o=OUT[S.oc]||OUT[0],m=MKS[S.mk]||MKS[0];$('bd').setAttribute('fill',o.c);$('ac').textContent=o.a;$('mo').setAttribute('stroke',m.lip);$('ey').setAttribute('display',m.e?'':'none');$('c1').setAttribute('opacity',m.b);$('c2').setAttribute('opacity',m.b);$('bat').style.display=S.bf&&!S.bat?'':'none';$('dec').innerHTML=S.dc.map(function(i){return DC[i].s;}).join('');}
+function mult(){return 1+.3*S.l+S.fx+S.m/250+S.dc.length*.04;}
+function toast(t){var e=$('toast');e.textContent=t;e.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(function(){e.style.display='none';},2800);}
+function burst(){for(var i=0;i<30;i++){var p=document.createElement('div');p.className='p';p.textContent=rnd(['♡','✦','♛','💗','✧']);p.style.cssText='left:'+Math.random()*95+'%;font-size:'+(16+Math.random()*22)+'px;animation-delay:'+Math.random()*.8+'s;color:#ffa3d1';document.body.appendChild(p);setTimeout(function(q){return function(){q.remove();};}(p),3800);}}
+function ach(id,t){if(S.a[id])return;S.a[id]=1;toast('🏆 Достижение: '+t);burst();}
+function menu(t,a){var h='<div class="t">'+t+'</div>';a.forEach(function(x){h+='<button onclick="act(\''+x[1]+'\')">'+x[0]+'</button>';});$('panel').innerHTML=h+'<button onclick="rel()">Назад</button>';}
+function lst(t,A,own,cur,p){menu(t,A.map(function(x,i){var has=own.indexOf(i)>=0;return [(has?(cur===i?'✓ ':'')+'Надеть: ':'Купить ('+x.p+' ₽): ')+x.n,p+i];}));}
+function street(){if(busy)return;busy=1;$('d').style.opacity=.15;menu('Даша на улице. Куда пойдём?',[['🛍 В магазин (1 ч, −150 ₽)','shop'],['👥 Сходка с подписчиками (3 ч, −200 ₽)','meet'],['📸 Прогулка со съёмкой (2 ч)','walk']]);}
+function sec(){if(S.bat||S.bf)return say('Постеры молчат. Всё уже найдено.');S.bs++;if(S.bs>=5){S.bf=1;look();say('За постером блеснуло что-то серебряное. Это бита у стола!');toast('✦ Что-то блестит у стола');}else say(rnd(['Постеры как-то подозрительно смотрят...','Эй, не тыкай в постеры!','Что-то за ними есть ('+S.bs+'/5)...']));}
+function love(){S.pc=0;ach('love','Секрет: Mirage21 — My Love');burst();var d=ch([500,0,20,0]);hud();save();say('🎧 Даша включила Mirage21 — My Love и закружилась по комнате ♡ Видео разлетелось!'+d);}
+function chk(){var T=[1e4,1e5,1e6];if(S.g<3&&S.f>=T[S.g]){S.g++;end2(S.g-1);return 1;}return 0;}
+function fix(){if(S.h>=24)newDay();else rel();}
+function end2(i){burst();var ti=['10K подписчиков!','100K подписчиков!','1 000 000!'],su=['Спасибо вам огромное! Вы делаете мой мир лучше ♡','Серебряная кнопка! Даша теперь настоящая звезда ✦','Золотая кнопка! «Меня зовут 20» знает вся страна ♛'];ov('<div class="big">♛</div><div class="big">'+['10K','100K','1M'][i]+'</div><h2>'+ti[i]+'</h2><p style="text-align:center;font-size:25px">'+su[i]+'<br>День '+S.d+'</p><button class="m" onclick="$(\'over\').style.display=\'none\';fix()">Расти дальше ♡</button>');save();}
+function act2(k){
+ var r=k.match(/^(so|sm|sd|tr)(\d+)$/),i,t,x,own;
+ if(r){i=+r[2];t=r[1];
+  if(t=='tr'){x=TR[i];var ok=Math.random()>x[2];if(ok)S.fx+=x[1];if(x[3])ach('love','Mirage21 — My Love');return fin(ok?'Тренд «'+x[0]+'» залетает! Эфир будет жарким.'+ch([40,-3,6,0]):'Тренд оказался уже мёртвым...'+ch([0,-3,-4,0]),1),1;}
+  x=t=='so'?OUT[i]:t=='sm'?MKS[i]:DC[i];own=t=='so'?S.o:t=='sm'?S.mks:S.dc;
+  if(own.indexOf(i)<0){if(S.c<x.p)return fin('Не хватает денег ('+x.p+' ₽).',0,1),1;S.c-=x.p;own.push(i);ach('buy','Первая покупка!');}else if(t=='sd')return fin('Это уже стоит в комнате ♡',0,1),1;
+  if(t=='so')S.oc=i;if(t=='sm')S.mk=i;if(t!='sd')S.fx+=.15;look();
+  return fin(t=='sd'?'Комната стала уютнее: '+x.n+' на месте!'+ch([0,0,10,0]):'Теперь на Даше «'+x.n+'». Ей идёт!'+ch([0,0,8,0]),1),1;}
+ if(k=='scr'){var ids=[0,1,2,3,4,5,6].sort(function(){return Math.random()-.5;}).slice(0,3);menu('Тикток подкинул тренды. Что выберешь?',ids.map(function(j){return [TR[j][0],'tr'+j];}));return 1;}
+ if(k=='wr'){lst('Образы',OUT,S.o,S.oc,'so');return 1;}
+ if(k=='mkp'){lst('Макияж',MKS,S.mks,S.mk,'sm');return 1;}
+ if(k=='dcm'){lst('Украшения комнаты',DC,S.dc,-1,'sd');return 1;}
+ if(k=='bat'){S.bat=1;S.bf=0;look();ach('bat','Секрет: серебряная бита');return fin('Серебряная бита у Даши! Теперь в эфире можно устроить наказание 🏏',0,1),1;}
+ if(k=='str'||k=='edt'||k=='dnc'){if(k=='str'&&S.h<18)return fin('Рано, зрители придут с 18:00.',0,1),1;if(S.e<20)return fin('Нет сил, нужно отдохнуть.',0,1),1;game2(k);return 1;}
+ if(k=='mail'){ev(6+Math.floor(Math.random()*5));return 1;}
+ if(k=='shop'){if(S.c<150)return fin('На шопинг не хватает денег.',0,1),1;var nw=[];OUT.forEach(function(o,j){if(S.o.indexOf(j)<0)nw.push(j);});if(nw.length&&Math.random()<.35){var j=rnd(nw);S.o.push(j);return fin('В магазине нашла образ «'+OUT[j].n+'»! Он уже в шкафу.'+ch([0,5,12,-150]),1),1;}return fin('Прошлась по магазинам, купила вкусняшки.'+ch([0,8,12,-150]),1),1;}
+ if(k=='meet'){if(S.c<200)return fin('На угощения для сходки нужно хотя бы 200 ₽.',0,1),1;ach('meet','Первая сходка с подписчиками');return fin('Сходка удалась! Подписчики принесли ландыши ♡'+ch([Math.round((150+S.f*.04)*mult()),-15,15,-200]),3),1;}
+ if(k=='walk')return fin('Прогулка с камерой: красивые кадры, и тебя узнали!'+ch([Math.round((100+S.f*.02)*mult()),-8,8,0]),2),1;
+ return 0;
+}
+var GC={str:{t:14,g:['огонь 🔥','люблю ♡','красотка','ты лучшая','10/10 ✦','пой!'],h:['фу 💢','скука','ужас','отписка'],ph:.3,hr:3,ec:-25,hint:'Ловим ♡, баним 💢',a:18,b:60,pen:35,mo:10},edt:{t:12,g:['🎞 кадр','✨ эффект','🎬 дубль'],h:['🗑 мусор','⚠️ брак'],ph:.35,hr:2,ec:-12,hint:'Берём лучшие кадры, чистим 🗑',a:12,b:40,pen:20,mo:0},dnc:{t:12,g:['💃 шаг','🎵 бит','✦ поворот','🔥 движ'],h:['💥 мимо','🙈 ошибка'],ph:.3,hr:2,ec:-20,hint:'Ловим движения, убираем ошибки',a:16,b:50,pen:25,mo:5}};
+function game2(k){
+ var c=GC[k],g=$('game'),sc=0,bad=0,t=c.t,gt=$('gt'),s,tm;busy=1;$('panel').innerHTML='';g.style.display='block';
+ function tick(){gt.textContent=c.hint+' · '+t+' с · ♡ '+sc;}
+ tick();
+ if(S.bat){var pb=document.createElement('button');pb.id='pun';pb.textContent='🏏 Наказание';pb.style.cssText='position:absolute;top:34px;right:6px;z-index:7;padding:6px 14px;font:700 20px Caveat,cursive;color:#ffa3d1;background:#2b050a;border:2px solid #dfe6f2;border-radius:20px;box-shadow:0 0 10px #dfe6f2';pb.onpointerdown=function(){[].slice.call(g.querySelectorAll('.b.h')).forEach(function(x){x.remove();sc+=2;});pb.remove();toast('🏏 Бита наказала всех хейтеров!');tick();};g.appendChild(pb);}
+ function sp(){var h=Math.random()<c.ph,b=document.createElement('div');b.className='b'+(h?' h':'');b.textContent=rnd(h?c.h:c.g);b.style.left=(3+Math.random()*48)+'%';b.style.animationDuration=(4.4+Math.random()*1.2)+'s';b.onpointerdown=function(e){e.preventDefault();sc+=h?1:2;b.remove();tick();};b.addEventListener('animationend',function(){if(b.parentNode){if(h)bad++;b.remove();}});g.appendChild(b);}
+ s=setInterval(sp,720);
+ tm=setInterval(function(){t--;tick();if(t<=0){clearInterval(s);clearInterval(tm);setTimeout(done,300);}},1000);
+ function done(){g.style.display='none';[].slice.call(g.querySelectorAll('.b,#pun')).forEach(function(x){x.remove();});
+  var m=mult(),sf=1+S.f/8000,gain=Math.max(0,Math.round((sc*c.a+c.b-bad*c.pen)*m*sf)),mo=Math.round(sc*c.mo*(1+S.f/20000));S.fx=0;
+  var d=ch([gain,c.ec,bad>3?-8:6,mo]);ach(k,{str:'Первый эфир',edt:'Первый монтаж',dnc:'Первый танец'}[k]);
+  fin((bad>3?'Не всё гладко. ':'Отлично получилось! ')+'Очки: '+sc+'.'+d,c.hr,1);}
 }
 boot();
 </script>
