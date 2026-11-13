@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Меня зовут 20 — комната Даши</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--pink:#ffa3d1;--hot:#ff5fae;--glow:0 0 6px #ff7cc0,0 0 16px #ff3f9c;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%;background:radial-gradient(ellipse at 50% 0,#5e101c,#2b050a 70%) fixed;color:var(--pink);font:500 21px 'Caveat',cursive}
+#app{max-width:460px;margin:0 auto;padding:8px 10px 24px}
+h1,h2,.big{font-family:'Marck Script',cursive;font-weight:400;text-shadow:var(--glow);text-align:center;margin:4px 0}
+.big{font-size:60px;line-height:1}h2{font-size:30px}
+#hud{display:flex;flex-wrap:wrap;gap:2px 12px;font-size:19px;margin-bottom:4px}
+#hud div{white-space:nowrap}
+.bar{height:8px;border:1.5px solid var(--pink);border-radius:8px;overflow:hidden;margin:2px 0 4px;box-shadow:0 0 6px #ff3f9c88}
+.bar i{display:block;height:100%;background:var(--hot);box-shadow:var(--glow);transition:width .4s}
+#room{position:relative;border:2px solid var(--pink);border-radius:18px;overflow:hidden;box-shadow:0 0 16px #ff3f9c77;line-height:0}
+svg{width:100%;height:auto}
+.o{cursor:pointer}.o:active{opacity:.8}
+.sp{fill:var(--pink);font-size:15px;text-anchor:middle;animation:tw 2s infinite;filter:url(#g)}
+@keyframes tw{50%{opacity:.2}}
+#d{transition-property:transform;transition-timing-function:ease-in-out;cursor:pointer}
+.bob{animation:bob 1.6s ease-in-out infinite}.walk{animation:bob .35s linear infinite}
+@keyframes bob{50%{transform:translateY(-3px)}}
+#game{display:none;position:absolute;inset:0;background:#2b050acc;z-index:5;overflow:hidden;line-height:1.1}
+#gt{position:absolute;top:6px;left:10px;right:10px;text-align:center;font-size:20px}
+.b{position:absolute;bottom:-30px;padding:3px 12px;border-radius:20px;border:2px solid var(--pink);font-size:22px;background:#2b050a;white-space:nowrap;animation:up 3.4s linear forwards;box-shadow:0 0 10px #ff3f9c88}
+.b.h{border-color:#ff5555;color:#ff9a9a;box-shadow:0 0 10px #f33}
+@keyframes up{to{bottom:105%}}
+#say{margin:8px 0;padding:8px 12px;border:2px solid var(--pink);border-radius:18px;font-size:22px;line-height:1.15;box-shadow:0 0 10px #ff3f9c55 inset;min-height:46px}
+#panel button,#over button{width:100%;margin-top:8px;padding:8px 12px;font:700 22px 'Caveat',cursive;color:var(--pink);background:transparent;border:2px solid var(--pink);border-radius:28px;text-shadow:0 0 6px #ff7cc0;box-shadow:0 0 10px #ff3f9c55}
+#panel button:active,#over button:active{background:#ff5fae33}
+button.m{background:var(--hot)!important;color:#2b050a!important;text-shadow:none!important}
+#panel .t{font-size:23px;line-height:1.15}
+#over{display:none;position:fixed;inset:0;z-index:9;background:radial-gradient(ellipse at 50% 0,#5e101c,#2b050a 75%);overflow:auto;padding:20px 18px}
+#over>div{max-width:440px;margin:0 auto}
+.fine{text-align:center;font-size:17px;opacity:.75;margin-top:10px}
+</style>
+</head>
+<body>
+<div id="app">
+<div id="hud"></div>
+<div id="room">
+<svg viewBox="0 0 360 400" xmlns="http://www.w3.org/2000/svg">
+<defs><filter id="g" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<linearGradient id="w" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a0c18"/><stop offset="1" stop-color="#2e060d"/></linearGradient>
+<linearGradient id="n" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b1033"/><stop offset="1" stop-color="#5a1b4a"/></linearGradient></defs>
+<rect width="360" height="400" fill="url(#w)"/>
+<rect y="285" width="360" height="115" fill="#220509"/><path d="M0 285H360" stroke="#ff9ccf" stroke-opacity=".4"/>
+<path d="M0 14H360" stroke="#ff2d55" stroke-width="4" stroke-dasharray="2 6" filter="url(#g)"/>
+<g fill="#3a0a12" stroke="#ff9ccf" stroke-opacity=".6"><rect x="12" y="36" width="34" height="46"/><rect x="52" y="44" width="26" height="36"/><rect x="290" y="36" width="30" height="40"/><rect x="326" y="48" width="22" height="30"/></g>
+<g class="o" onclick="tap('win')"><rect x="150" y="40" width="88" height="78" rx="4" fill="url(#n)" stroke="#ff9ccf" stroke-width="3"/><path d="M194 40V118M150 79H238" stroke="#ff9ccf"/><circle cx="218" cy="58" r="9" fill="#ffe3f1" filter="url(#g)"/><text class="sp" x="194" y="34">✦</text></g>
+<g class="o" onclick="tap('plush')"><path d="M12 152H116" stroke="#ff9ccf" stroke-width="3"/><circle cx="50" cy="134" r="16" fill="#ffe3f1"/><circle cx="38" cy="120" r="6" fill="#ffe3f1"/><circle cx="62" cy="120" r="6" fill="#ffe3f1"/><circle cx="44" cy="133" r="2" fill="#222"/><circle cx="57" cy="133" r="2" fill="#222"/><ellipse cx="50" cy="139" rx="3" ry="2" fill="#f3b32b"/><path d="M60 122l12-5v10z" fill="#ff3b6b"/><text class="sp" x="50" y="106">✦</text></g>
+<g class="o" onclick="tap('bed')"><rect x="6" y="228" width="136" height="64" rx="6" fill="#5d1222" stroke="#ff9ccf"/><rect x="12" y="216" width="42" height="18" rx="8" fill="#ffc4de"/><rect x="60" y="238" width="78" height="42" rx="6" fill="#7a1a33"/><rect x="104" y="226" width="9" height="15" rx="2" fill="#ff7cc0" filter="url(#g)"/><text class="sp" x="76" y="206">✦</text></g>
+<g class="o" onclick="tap('pc')"><rect x="150" y="238" width="104" height="9" fill="#6b1830" stroke="#ff9ccf"/><path d="M158 247V292M246 247V292" stroke="#ff9ccf" stroke-width="3"/><rect x="172" y="186" width="56" height="42" rx="3" fill="#18040a" stroke="#ff9ccf"/><rect x="177" y="191" width="46" height="32" fill="#ff7cc0" opacity=".75" filter="url(#g)"/><path d="M200 228v10" stroke="#ff9ccf" stroke-width="3"/><circle id="ring" cx="244" cy="200" r="15" fill="none" stroke="#ffd6ec" stroke-width="3" filter="url(#g)"/><path d="M244 215V238" stroke="#ff9ccf" stroke-width="2"/><text class="sp" x="200" y="174">✦</text></g>
+<g class="o" onclick="tap('ward')"><rect x="266" y="140" width="82" height="152" rx="4" fill="#3a0a12" stroke="#ff9ccf" stroke-width="2"/><rect x="276" y="152" width="62" height="86" rx="3" fill="#8a3a55" stroke="#ffc4de"/><path d="M284 232L330 160" stroke="#fff" stroke-opacity=".25" stroke-width="5"/><circle cx="307" cy="268" r="3" fill="#ff9ccf"/><text class="sp" x="307" y="132">✦</text></g>
+<g id="d" style="transform:translate(190px,340px)" onclick="pat()"><ellipse cx="0" cy="0" rx="24" ry="5" fill="#000" opacity=".35"/><g class="bob" id="dd">
+<rect x="-14" y="-24" width="10" height="22" fill="#2a1a1f"/><rect x="4" y="-24" width="10" height="22" fill="#2a1a1f"/><rect x="-17" y="-4" width="14" height="5" rx="2" fill="#ffc4de"/><rect x="3" y="-4" width="14" height="5" rx="2" fill="#ffc4de"/>
+<ellipse cx="0" cy="-92" rx="25" ry="28" fill="#17080c"/>
+<path d="M-23 -70h46l7 48h-60z" fill="#6b1424"/><path d="M-9 -70L0 -58 9 -70" fill="none" stroke="#fff" stroke-width="3"/>
+<rect x="-5" y="-76" width="10" height="9" fill="#f3cdbf"/><circle cx="0" cy="-92" r="19" fill="#f3cdbf"/>
+<path d="M-21 -94Q0 -122 21 -94Q10 -104 0 -100Q-10 -104 -21 -94z" fill="#17080c"/><rect x="-24" y="-96" width="6" height="30" rx="3" fill="#17080c"/><rect x="18" y="-96" width="6" height="30" rx="3" fill="#17080c"/>
+<circle cx="-7" cy="-90" r="2.4" fill="#5b7fa6"/><circle cx="7" cy="-90" r="2.4" fill="#5b7fa6"/><circle cx="-12" cy="-84" r="3" fill="#ff9ccf" opacity=".5"/><circle cx="12" cy="-84" r="3" fill="#ff9ccf" opacity=".5"/>
+<path id="mo" d="M-5 -80Q0 -76 5 -80" fill="none" stroke="#b0405a" stroke-width="2" stroke-linecap="round"/>
+<circle cx="19" cy="-96" r="3.5" fill="#fff"/><circle cx="22" cy="-90" r="3" fill="#fff"/><circle cx="20" cy="-84" r="2.6" fill="#fff"/></g></g>
+</svg>
+<div id="game"><div id="gt"></div></div>
+</div>
+<div id="say"></div>
+<div id="panel"></div>
+<div class="fine">Нажимай на предметы в комнате ✦ и на Дашу</div>
+</div>
+<div id="over"><div id="ovc"></div></div>
+<script>
+var tg=window.Telegram&&window.Telegram.WebApp;if(tg){try{tg.ready();tg.expand();}catch(e){}}
+function $(i){return document.getElementById(i);}
+function cl(v){return Math.max(0,Math.min(100,v));}
+function fmt(n){return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,' ');}
+function rnd(a){return a[Math.floor(Math.random()*a.length)];}
+var S,busy=0,X=190,last=-1,KEY='d20room';
+var O={
+bed:{x:76,n:'Кровать',a:[['😴 Вздремнуть (3 ч)','nap'],['📱 Листать тикток (1 ч)','scr']]},
+plush:{x:50,n:'Плюшевая Китти',a:[['🎀 Обнять плюшку (1 ч)','hug']]},
+win:{x:172,n:'Окно',a:[['🌃 Смотреть на огни города (1 ч)','look']]},
+pc:{x:196,n:'Рабочий стол',a:[['🎥 Выйти в эфир (3 ч, с 18:00)','str'],['✂️ Монтаж видео (2 ч)','edt'],['💡 Кольцевая лампа −500 ₽','lamp']]},
+ward:{x:306,n:'Шкаф с зеркалом',a:[['💄 Сделать макияж (1 ч)','mk'],['👗 Новый образ −300 ₽','out']]}
+};
+var EV=[
+["Под видео пишет хейтер: «Скукота».",[["Ответить с юмором","Чат ржёт, комментарий залетел!",300,0,5,0,.6,["Шутка не зашла.",-100,0,-10,0]],["Удалить и забыть","Тишина. Спокойнее.",0,0,3,0]]],
+["Бренд предлагает рекламу «чудо-чая».",[["Согласиться","Деньги пришли, зрители бурчат.",-300,0,-5,700],["Отказаться","Чат уважает твою честность!",100,0,10,0]]],
+["Звонит мама: «Когда нормальная работа?»",[["Показать статистику канала","Мама впечатлена!",0,0,12,0],["Не брать трубку","Совесть немного грызёт.",0,0,-6,0]]],
+["Подруга зовёт гулять.",[["Пойти","Было здорово! Но ноги гудят.",0,-15,15,-100],["Остаться дома","Уютно, но чуть грустно.",0,5,-3,0]]],
+["Известный блогер предлагает коллаб!",[["Согласиться","Огромный охват!",600,-10,8,0],["Отказаться","Вдруг в другой раз.",0,0,3,0]]],
+["В видео случайно играл чужой трек.",[["Заменить музыку","Безопасно.",-50,0,2,0],["Оставить","Повезло, никто не заметил!",200,0,3,0,.5,["Видео заблокировали.",-400,0,-10,0]]]]
+];
+var PH=['Хи-хи, щекотно ♡','Сделаем крутой контент!','Спасибо, что ты рядом ♡','10K уже близко ✦','Я так люблю свой канал «Меня зовут 20»'];
+function init(){S={f:1000,e:80,m:70,c:500,d:1,h:10,l:0,fx:0,won:0};}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function hud(){
+ $('hud').innerHTML='<div style="width:100%">Подписчики: <b>'+fmt(S.f)+'</b> / 10 000</div><div class="bar" style="width:100%"><i style="width:'+Math.min(100,S.f/100)+'%"></i></div><div>📅 День '+S.d+'/30</div><div>🕒 '+(S.h<10?'0':'')+S.h+':00</div><div>⚡ '+Math.round(S.e)+'</div><div>♡ '+Math.round(S.m)+'</div><div>💸 '+fmt(S.c)+' ₽</div>';
+ $('mo').setAttribute('d',S.m<30?'M-5 -76Q0 -80 5 -76':'M-5 -80Q0 -75 5 -80');
+ $('ring').style.opacity=S.l?1:.35;
+}
+function say(t){$('say').textContent='💬 '+t;}
+function ch(a){
+ var f=a[0]?Math.round(a[0]*(.9+Math.random()*.2)/10)*10:0,oe=S.e,om=S.m;
+ S.f=Math.max(0,S.f+f);S.e=cl(S.e+a[1]);S.m=cl(S.m+a[2]);S.c+=a[3];
+ var r=[];if(f)r.push((f>0?'+':'')+fmt(f)+' подп.');if(S.e!=oe)r.push((S.e>oe?'+':'')+Math.round(S.e-oe)+' ⚡');if(S.m!=om)r.push((S.m>om?'+':'')+Math.round(S.m-om)+' ♡');if(a[3])r.push((a[3]>0?'+':'')+a[3]+' ₽');
+ return r.length?' ('+r.join(', ')+')':'';
+}
+function go(x,cb){
+ var dd=$('dd'),d=$('d'),ms=Math.abs(x-X)*7+120;
+ busy=1;$('panel').innerHTML='';dd.setAttribute('class','walk');d.style.transitionDuration=ms+'ms';d.style.transform='translate('+x+'px,340px)';X=x;
+ setTimeout(function(){dd.setAttribute('class','bob');cb&&cb();},ms+40);
+}
+function tap(k){
+ if(busy)return;var o=O[k];
+ go(o.x,function(){
+  var h='<div class="t">'+o.n+'. Что делаем?</div>';
+  o.a.forEach(function(a){h+='<button onclick="act(\''+a[1]+'\')">'+a[0]+'</button>';});
+  h+='<button onclick="rel()">Отойти</button>';$('panel').innerHTML=h;
+ });
+}
+function rel(){busy=0;$('panel').innerHTML='';}
+function pat(){if(busy)return;S.m=cl(S.m+1);hud();say(rnd(PH));}
+function fin(msg,h,noEv){
+ S.h+=h;
+ if(S.e<=0){S.e=30;S.h+=3;msg+=' Даша уснула за столом...';}
+ say(msg);hud();save();
+ if(S.f>=10000&&!S.won){S.won=1;return end(1);}
+ if(S.h>=24)return newDay();
+ if(!noEv&&Math.random()<.3)return ev();
+ rel();
+}
+function newDay(){
+ S.d++;S.h=10;S.e=cl(S.e+55);
+ if(S.d>30)return end(0);
+ hud();save();$('panel').innerHTML='<div class="t">☀️ Начался день '+S.d+'. Энергия восстановилась.</div><button class="m" onclick="rel()">Ура ♡</button>';
+}
+function ev(){
+ var i;do{i=Math.floor(Math.random()*EV.length);}while(i==last);last=i;var e=EV[i];
+ var h='<div class="t">✦ '+e[0]+'</div>';
+ e[1].forEach(function(c,j){h+='<button onclick="evp('+j+')">'+c[0]+'</button>';});
+ $('panel').innerHTML=h;
+}
+function evp(j){
+ var c=EV[last][1][j],r=c[1],a=c.slice(2,6);
+ if(c[6]!==undefined&&Math.random()>=c[6]){r=c[7][0];a=c[7].slice(1);}
+ var d=ch(a);hud();save();say(r+d);
+ if(S.f>=10000&&!S.won){S.won=1;return end(1);}
+ rel();
+}
+function act(k){
+ $('panel').innerHTML='';
+ var m=1+S.m/250,t;
+ if(k=='nap')return fin('Даша вздремнула. Стало легче.'+ch([0,30,5,0]),3);
+ if(k=='scr'){S.fx+=.2;return fin('Увидела трендовый звук! Идея для следующего эфира.'+ch([30,-3,6,0]),1);}
+ if(k=='hug')return fin('Обняла Китти. Тепло и спокойно ♡'+ch([0,3,12,0]),1);
+ if(k=='look'){if(Math.random()<.3)S.fx+=.15;return fin('Огни города успокаивают. Вдруг пришла мысль для контента.'+ch([0,0,9,0]),1);}
+ if(k=='mk'){S.fx+=.15;return fin('Стрелки идеальные, образ готов!'+ch([0,-2,6,0]),1);}
+ if(k=='out'){if(S.c<300)return fin('Не хватает денег на новый образ.',0,1);S.fx+=.25;return fin('Новый образ! Чувствуется уверенность.'+ch([0,0,10,-300]),1);}
+ if(k=='lamp'){if(S.l)return fin('Лампа уже куплена, свет шикарный!',0,1);if(S.c<500)return fin('Не хватает денег на лампу.',0,1);S.l=1;return fin('Купила кольцевую лампу. Картинка стала лучше!'+ch([0,0,8,-500]),0,1);}
+ if(k=='edt'){if(S.e<15)return fin('Слишком устала для монтажа.',0,1);return fin('Смонтировала видео, залетело в рекомендации!'+ch([Math.round((140+S.fx*100)*(1+S.l*.3+S.m/250)),-12,2,0]),2);}
+ if(k=='str'){if(S.h<18)return fin('Рано, зрители придут с 18:00. Заняться чем-то ещё?',0,1);if(S.e<20)return fin('Нет сил на эфир. Нужно отдохнуть.',0,1);return game();}
+}
+var G;
+function game(){
+ busy=1;var g=$('game');g.style.display='block';
+ var sc=0,bad=0,t=14,gt=$('gt'),G={};
+ var gd=['огонь 🔥','люблю ♡','красотка','ты лучшая','10/10 ✦','пой!'],hd=['фу 💢','скука','ужас','отписка'];
+ function tick(){gt.textContent='Ловим ♡ в чате, банем 💢  ·  '+t+' с  ·  ♡ '+sc;}
+ tick();
+ function sp(){
+  var h=Math.random()<.3,b=document.createElement('div');
+  b.className='b'+(h?' h':'');b.textContent=rnd(h?hd:gd);b.style.left=(4+Math.random()*58)+'%';
+  b.onclick=function(){if(h){sc+=1;b.remove();}else{sc+=2;b.remove();}if(h)bad=Math.max(0,bad);tick();};
+  b.addEventListener('animationend',function(){if(b.parentNode){if(h)bad++;b.remove();}});
+  g.appendChild(b);
+ }
+ G.s=setInterval(sp,560);
+ G.t=setInterval(function(){t--;tick();if(t<=0){clearInterval(G.s);clearInterval(G.t);
+  setTimeout(function(){
+   g.style.display='none';[].slice.call(g.querySelectorAll('.b')).forEach(function(x){x.remove();});
+   var mult=1+.3*S.l+S.fx+S.m/250,gain=Math.max(0,Math.round((sc*18+60-bad*35)*mult));
+   var mood=bad>3?-8:6;S.fx=0;
+   var d=ch([gain,-25,mood,sc*10]);
+   fin((bad>3?'Хейтеры подпортили эфир. ':'Эфир прошёл здорово! ')+'Поймано сердечек: '+sc+'.'+d,3,1);
+  },300);}},1000);
+}
+function end(win){
+ var h=win?'<div class="big">♛</div><div class="big">10K</div><h2>подписчиков!</h2><p style="text-align:center;font-size:25px">Спасибо вам огромное!<br>Вы делаете мой мир лучше ♡<br>Дней: '+S.d+'</p><button class="m" onclick="$(\'over\').style.display=\'none\';rel()">Расти дальше ♡</button><button onclick="again()">Начать заново</button>'
+ :'<h2>Конец сезона</h2><p style="text-align:center;font-size:25px">30 дней позади.<br>Подписчиков: '+fmt(S.f)+'<br>'+(S.f>=5000?'Отличный результат!':'Есть куда расти ♡')+'</p><button class="m" onclick="again()">Играть снова ✦</button>';
+ ov(h);
+}
+function ov(h){$('ovc').innerHTML=h;$('over').style.display='block';}
+function again(){try{localStorage.removeItem(KEY);}catch(e){}init();X=190;$('d').style.transitionDuration='0ms';$('d').style.transform='translate(190px,340px)';$('over').style.display='none';hud();say('Новый день в комнате! Нажимай на предметы ✦');rel();}
+function boot(){
+ var sv=null;try{sv=JSON.parse(localStorage.getItem(KEY));}catch(e){}
+ init();hud();say('Привет! Я Даша. Нажми на предмет в комнате, и я подойду.');
+ ov('<div class="big">♛</div><div class="big">Меня<br>зовут 20</div><p style="text-align:center;font-size:24px">Помоги Даше дорасти до <b>10K подписчиков</b> за 30 дней. Ходи по комнате, стримь, монтируй, отдыхай и не выгори ♡</p><button class="m" onclick="$(\'over\').style.display=\'none\'">'+(sv&&sv.f?'Новая игра':'Войти в комнату ✦')+'</button>'+(sv&&sv.f?'<button onclick="S=JSON.parse(localStorage.getItem(KEY));hud();$(\'over\').style.display=\'none\'">Продолжить (день '+sv.d+')</button>':''));
+}
+boot();
+</script>
+</body>
+</html>
